@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
     <head>
-        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>Movie Manager</title>
         <link rel="stylesheet" href="./css/style.css">
     </head>
@@ -17,16 +17,14 @@
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h1>🎥 영화 기록</h1>
+                <h1 style="flex: 1; text-align: center; margin-left: 60px;">🎥 영화 기록</h1>
                 <button id="logout" style="width: auto; padding: 8px 15px; font-size: 13px; background: #666;">로그아웃</button>
             </div>
 
-            <div class="search-container">
+            <div class="search-container" style="position: relative;">
                 <input id="tmdb-search" type="text" placeholder="🔍 영화 제목으로 검색해서 선택..." />
                 <div id="search-results"></div>
-                </div>
-
-                <div class="input-group">
+            </div> <div class="input-group">
                 <div id="poster-preview"></div>
                 <input id="movie-title" type="text" placeholder="영화 제목 (검색 시 자동 입력)" readonly style="background: #eee;"/>
                 
