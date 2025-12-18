@@ -60,7 +60,7 @@ document.getElementById('login-email').onclick = () => {
       console.log(result.user);
     })
     .catch(err => {
-      alert("로그인 실패: " + err.message);
+      alert("이메일 로그인 실패: " + err.message);
     });
 };
 
