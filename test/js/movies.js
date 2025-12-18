@@ -192,3 +192,11 @@ function initDDay() {
 
 // 실행
 initDDay();
+
+// movies.js 끝 부분 근처
+document.addEventListener("DOMContentLoaded", () => {
+  const ratingInput = document.getElementById("movie-rating");
+  if (ratingInput && !ratingInput.value) {
+    ratingInput.value = 5; // 기본 별점
+  }
+});

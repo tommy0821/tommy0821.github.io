@@ -3,54 +3,74 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #ffebee; 
-  
-  /* 배경 이미지 설정 유지 */
-  background-image: url("../img/main_image.png"); 
-  background-position: center bottom; 
+  background-color: #ffebee;
+  height: 100%;
+}
+
+/* 배경 + 전체 레이아웃 */
+body {
+  background-image: url("../img/main_image.png");
+  background-position: center bottom;
   background-repeat: no-repeat;
-  background-size: contain; /* 모바일에서 이미지가 잘리지 않도록 조절 */
+  background-size: contain;
   background-attachment: fixed;
 
-  /* 화면 전체 중앙 정렬 */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;           /* 상단부터 자연스럽게 */
   min-height: 100vh;
-  box-sizing: border-box;
-  padding: 20px 0;
+  padding: 16px 0;
+}
+
+/* 스크롤이 자연스럽게 되는 메인 래퍼 (iOS safe-area 고려) */
+.main-wrap {
+  width: 100%;
+  padding: env(safe-area-inset-top, 16px) 0 env(safe-area-inset-bottom, 16px);
+  display: flex;
+  justify-content: center;
 }
 
 /* 컨테이너 카드 디자인 */
 .container {
-  width: 90%;
-  max-width: 450px;
-  background: rgba(255, 255, 255, 0.95); /* 배경이 살짝 비치도록 설정 */
-  padding: 25px 20px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.15);
+  width: 92%;
+  max-width: 480px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 20px 18px;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 1;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;              /* 내용이 많으면 카드 안에서 스크롤 */
 }
 
-/* 상단 D-Day 바 중앙 정렬 */
+/* 스크롤바 최소화 (iOS/웹공통) */
+.container::-webkit-scrollbar {
+  width: 4px;
+}
+.container::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 4px;
+}
+
+/* 상단 D-Day 바 */
 .dday-bar {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  padding-bottom: 15px;
-  margin-bottom: 15px;
+  gap: 6px;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
   border-bottom: 1px solid #f0f0f0;
-  font-weight: bold;
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 15px;
   color: #333;
 }
 
@@ -65,73 +85,177 @@ body {
   100% { transform: scale(1); }
 }
 
-/* 제목 및 아이콘 중앙 정렬 */
+/* 제목 */
 h1 {
   width: 100%;
   text-align: center;
-  margin: 10px 0 20px 0;
-  font-size: 24px;
+  margin: 6px 0 18px 0;
+  font-size: 22px;
 }
 
-/* 입력창 및 공통 버튼 최적화 */
-input, select, textarea, button {
+/* 서브 타이틀(있다면) */
+.subtitle {
+  font-size: 13px;
+  text-align: center;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+/* 입력/버튼 공통 – iOS 줌 방지 (16px 이상) */
+input,
+select,
+textarea,
+button {
   width: 100%;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  font-family: inherit;
+  -webkit-appearance: none;
+}
+
+/* 텍스트 입력류 */
+input,
+select,
+textarea {
+  padding: 10px 14px;
+  margin-bottom: 8px;
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* 버튼 */
+button {
   height: 46px;
   margin-bottom: 10px;
-  padding: 0 15px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 16px; /* 아이폰 줌 방지 */
-}
-
-button {
   background: #2b6eff;
-  color: white;
-  border: none;
-  font-weight: bold;
+  color: #fff;
+  font-weight: 600;
   cursor: pointer;
+  border: none;
+  transition: background 0.15s ease, transform 0.1s ease;
 }
 
-/* 입력 그룹 (검색 및 입력 영역) */
+button:active {
+  transform: scale(0.98);
+  background: #2659d4;
+}
+
+/* 서브 버튼 (취소, 로그아웃 등) */
+.btn-secondary {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+/* 입력 그룹 */
 .input-group {
   background: #f9f9f9;
-  padding: 15px;
+  padding: 12px 12px 10px;
   border-radius: 12px;
-  margin-top: 10px; /* 검색창과의 간격 확보 */
+  margin-top: 8px;
   border: 1px solid #eee;
   position: relative;
-  z-index: 1; /* 검색 결과보다 아래에 위치 */
+  z-index: 1;
 }
 
-/* 영화 목록 카드 레이아웃 수정 (모바일 대응) */
+/* 검색 결과 */
+#search-results {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  margin-top: 6px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  z-index: 100;
+  max-height: 260px;
+  overflow-y: auto;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+/* 검색 결과 항목 */
+.search-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+}
+
+.search-item:last-child {
+  border-bottom: none;
+}
+
+.search-item img {
+  width: 40px;
+  height: 60px;
+  margin-right: 12px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.search-item span {
+  font-size: 14px;
+}
+
+/* 포스터 미리보기 */
+#poster-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+#poster-preview img {
+  width: 100px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  display: block;
+}
+
+/* 영화 카드 리스트 */
+.movie-list {
+  margin-top: 12px;
+}
+
+/* 영화 카드 */
 .movie-card {
   display: flex;
-  align-items: center; /* 세로 중앙 정렬로 변경 */
-  background: white;
-  padding: 15px;
-  padding-left: 10px; /* 숫자 공간 확보 */
-  border-radius: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #eee;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  align-items: center;
+  background: #fff;
+  padding: 12px 12px 12px 8px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  border: 1px solid #f1f1f1;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 
+/* 번호 */
 .movie-number {
-  font-size: 18px;
-  font-weight: bold;
-  color: #2b6eff; /* 파란색 숫자 */
-  min-width: 30px; /* 숫자가 찌그러지지 않게 공간 고정 */
+  font-size: 16px;
+  font-weight: 700;
+  color: #2b6eff;
+  min-width: 26px;
   text-align: center;
   flex-shrink: 0;
 }
 
+/* 포스터 */
 .movie-card img {
-  width: 70px; /* 모바일 사이즈에 맞게 축소 */
-  height: auto;
-  border-radius: 6px;
+  width: 68px;
+  height: 100px;
+  border-radius: 8px;
   object-fit: cover;
+  margin-left: 4px;
 }
 
+/* 정보 영역 */
 .movie-info {
   flex: 1;
   margin-left: 12px;
@@ -139,31 +263,18 @@ button {
 }
 
 .movie-info h3 {
-  margin: 0 0 5px 0;
-  font-size: 17px;
-  padding-right: 20px; /* 메뉴 버튼 공간 확보 */
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  padding-right: 24px;
 }
 
 .info-row {
-  font-size: 13px;
+  font-size: 12px;
   color: #666;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
-/* 영화 검색 결과창 */
-#search-results {
-  position: absolute;
-  width: 100%;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  z-index: 100; /* 가장 위로 올림 */
-  max-height: 250px;
-  overflow-y: auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-/* 메뉴 버튼 및 드롭다운 */
+/* 메뉴 버튼 */
 .menu-container {
   position: absolute;
   right: 0;
@@ -175,66 +286,99 @@ button {
   color: #888;
   width: auto;
   height: auto;
-  padding: 0 5px;
+  padding: 0 4px;
   font-size: 20px;
 }
 
+/* 메뉴 드롭다운 */
 .menu-dropdown {
   position: absolute;
   right: 0;
-  top: 25px;
-  background: white;
+  top: 24px;
+  background: #fff;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 10px;
   display: none;
   z-index: 10;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
 }
 
 .menu-dropdown button {
-  width: 80px;
-  height: 35px;
+  width: 90px;
+  height: 32px;
   font-size: 13px;
   background: none;
   color: #333;
   margin: 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #f3f3f3;
 }
 
-
-/* 검색 아이템 크기를 작게 복구 */
-.search-item {
-  padding: 8px 12px; /* 간격 줄임 */
-  cursor: pointer;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  align-items: center;
+.menu-dropdown button:last-child {
+  border-bottom: none;
 }
 
-.search-item img {
-  width: 40px; /* 원래 사이즈인 40px로 복구 */
-  height: 60px;
-  margin-right: 15px;
-  border-radius: 4px;
-  object-fit: cover;
+/* 로그인 페이지용 간단 레이아웃 (index.html) */
+.login-container {
+  text-align: center;
 }
 
-.search-item span {
-  font-size: 14px; /* 글자 크기 조정 */
+.login-container h1 {
+  margin-bottom: 24px;
 }
 
-/* 포스터 미리보기 정렬 수정 */
-#poster-preview {
-  display: flex;         /* flex 사용 */
-  justify-content: center; /* 가로 중앙 정렬 */
-  align-items: center;     /* 세로 중앙 정렬 */
-  margin-bottom: 15px;
-  width: 100%;           /* 전체 너비 사용 */
+.login-buttons {
+  margin-top: 12px;
 }
 
-#poster-preview img {
-  width: 100px;          /* 원래 원하셨던 작은 사이즈 유지 */
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  display: block;        /* 여백 방지 */
+/* 반응형 – 아주 작은 화면(아이폰 SE 등) */
+@media (max-width: 360px) {
+  .container {
+    border-radius: 0;
+    max-height: 100vh;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .movie-card img {
+    width: 60px;
+    height: 90px;
+  }
+
+  .movie-info h3 {
+    font-size: 15px;
+  }
 }
+
+/* 공통 input 스타일은 유지 */
+input, select, textarea, button {
+  width: 100%;
+  height: 46px;
+  margin-bottom: 10px;
+  padding: 0 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+/* iOS date input 전용 튜닝 */
+input[type="date"] {
+  /* 높이를 살짝 낮추고, 패딩/라인 높이 조정 */
+  height: 40px;
+  padding: 0 10px;
+  line-height: 40px;
+
+  /* iOS 기본 스타일 존중 (너무 강하게 꾸미지 않기) */
+  -webkit-appearance: none;
+  background-color: #fff;
+}
+
+/* 아주 좁은 화면일 때는 더 줄이기 (선택) */
+@media (max-width: 360px) {
+  input[type="date"] {
+    height: 38px;
+    line-height: 38px;
+  }
+}
+

@@ -2,33 +2,33 @@
 <html lang="ko">
 
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <title>Movie Manager - Login</title>
         <link rel="stylesheet" href="./css/style.css">
     </head>
 
     <body>
+        <div class="main-wrap">
+            <div class="container">
 
-        <div class="container">
+                <div class="dday-bar" id="dday-display">
+                    <span>애덩</span>
+                    <span class="heart">❤️</span>
+                    <span id="dday-count"></span> 
+                    <span id="start-date-display" class="start-date"></span>
+                </div>
 
-            <div class="dday-bar" id="dday-display">
-                <span>애덩</span>
-                <span class="heart">❤️</span>
-                <span id="dday-count"></span> 
-                <span id="start-date-display" class="start-date"></span>
+                <h1>🎬 </h1>
+
+                <input id="email" type="email" placeholder="이메일" />
+                <input id="password" type="password" placeholder="비밀번호" />
+
+                <button id="login-email">이메일로 로그인</button>
+                <button id="login-google">Google 로그인</button>
+
             </div>
 
-            <h1>🎬 </h1>
-
-            <input id="email" type="email" placeholder="이메일" />
-            <input id="password" type="password" placeholder="비밀번호" />
-
-            <button id="login-email">이메일로 로그인</button>
-            <button id="login-google">Google 로그인</button>
-
+            <script type="module" src="./js/app.js"></script>
         </div>
-
-        <script type="module" src="./js/app.js"></script>
-
     </body>
 </html>
