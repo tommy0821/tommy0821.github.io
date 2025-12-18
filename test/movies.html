@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>Movie Manager</title>
+        <link rel="stylesheet" href="./css/style.css">
+    </head>
+
+    <body>
+        
+        <div class="container" style="max-width: 500px;">
+            <div class="dday-bar" id="dday-display">
+                <span>애덩</span>
+                <span class="heart">❤️</span>
+                <span id="dday-count"></span>
+                <span id="start-date-display" class="start-date"></span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>🎥 영화 기록</h1>
+                <button id="logout" style="width: auto; padding: 8px 15px; font-size: 13px; background: #666;">로그아웃</button>
+            </div>
+
+            <div class="search-container">
+                <input id="tmdb-search" type="text" placeholder="🔍 영화 제목으로 검색해서 선택..." />
+                <div id="search-results"></div>
+                </div>
+
+                <div class="input-group">
+                <div id="poster-preview"></div>
+                <input id="movie-title" type="text" placeholder="영화 제목 (검색 시 자동 입력)" readonly style="background: #eee;"/>
+                
+                <label style="font-size: 13px; color: #888;">언제 보셨나요?</label>
+                <input id="movie-date" type="date"/>
+                
+                <input id="movie-location" type="text" placeholder="어디서 보셨나요? (예: CGV, 집)" />
+                
+                <label style="font-size: 13px; color: #888;">별점 (1~5점)</label>
+                <input id="movie-rating" type="number" max="5" min="1" placeholder="별점 (1-5)" />
+                
+                <input id="movie-review" type="text" placeholder="짧은 감상평을 남겨주세요." />
+                
+                <input id="movie-poster-url" type="hidden" />
+                <button id="add-movie" style="margin-top: 10px;">기록 저장하기</button>
+            </div>
+
+            <hr>
+            <h2>우리의 영화 리스트</h2>
+            <div id="movie-list"></div>
+        </div>
+
+        <script type="module" src="./js/movies.js"></script>
+    </body>
+</html>
