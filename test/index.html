@@ -1,21 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Firebase Test</title>
+  <title>Movie Manager</title>
 </head>
 <body>
 
-    <h1>Firebase Auth 테스트 페이지</h1>
+  <h1>Movie Manager</h1>
 
-    <!-- 이메일 로그인 입력 -->
-    <input id="email" type="email" placeholder="이메일 입력" />
-    <input id="password" type="password" placeholder="비밀번호 입력" />
+  <!-- 로그인 -->
+  <input id="email" type="email" placeholder="이메일 입력" />
+  <input id="password" type="password" placeholder="비밀번호 입력" />
+  <button id="login-email">로그인 (이메일)</button>
+  <button id="login-google">Google 로그인</button>
+  <button id="logout">로그아웃</button>
 
-    <button id="signup">회원가입 (이메일)</button>
-    <button id="login-email">로그인 (이메일)</button>
-    <button id="login">Google 로그인</button>
-    <button id="logout">로그아웃</button>
+  <hr>
 
-    <script type="module" src="app.js"></script>
+  <!-- 로그인 후 보여줄 UI -->
+  <div id="movie-area" style="display:none;">
+
+    <h2>영화 추가 / 수정</h2>
+    <input id="movie-title" type="text" placeholder="영화 제목 입력" />
+    <button id="add-movie">추가 / 수정</button>
+
+    <h2>영화 목록</h2>
+    <ul id="movie-list"></ul>
+
+  </div>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>
