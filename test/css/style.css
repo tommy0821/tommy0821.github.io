@@ -101,7 +101,7 @@ h1 {
   margin-bottom: 10px;
 }
 
-/* 입력/버튼 공통 – iOS 줌 방지 (16px 이상) */
+/* ==== 입력/버튼 공통 – iOS 줌 방지 (16px 이상) ==== */
 input,
 select,
 textarea,
@@ -112,6 +112,7 @@ button {
   font-size: 16px;
   font-family: inherit;
   -webkit-appearance: none;
+  box-sizing: border-box;
 }
 
 /* 텍스트 입력류 */
@@ -122,6 +123,18 @@ textarea {
   margin-bottom: 8px;
 }
 
+/* iOS date input 전용 튜닝 */
+input[type="date"] {
+  height: 40px;            /* 살짝 낮게 */
+  padding: 6px 10px;       /* 위아래 여유, 좌우 적당히 */
+  line-height: normal;
+  -webkit-appearance: none;
+  background-color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* textarea */
 textarea {
   min-height: 80px;
   resize: vertical;
@@ -349,36 +362,8 @@ button:active {
   .movie-info h3 {
     font-size: 15px;
   }
-}
 
-/* 공통 input 스타일은 유지 */
-input, select, textarea, button {
-  width: 100%;
-  height: 46px;
-  margin-bottom: 10px;
-  padding: 0 15px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 16px;
-}
-
-/* iOS date input 전용 튜닝 */
-input[type="date"] {
-  /* 높이를 살짝 낮추고, 패딩/라인 높이 조정 */
-  height: 40px;
-  padding: 0 10px;
-  line-height: 40px;
-
-  /* iOS 기본 스타일 존중 (너무 강하게 꾸미지 않기) */
-  -webkit-appearance: none;
-  background-color: #fff;
-}
-
-/* 아주 좁은 화면일 때는 더 줄이기 (선택) */
-@media (max-width: 360px) {
   input[type="date"] {
     height: 38px;
-    line-height: 38px;
   }
 }
-
