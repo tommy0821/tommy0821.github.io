@@ -219,15 +219,19 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const bar = document.getElementById("dday-bar");
   const container = document.querySelector(".container");
-  if (!bar || !container) return;
+  const scrollArea = document.getElementById("scroll-area");
+  if (!bar || !container || !scrollArea) return;
 
   let collapsed = false;
 
-  const originalHeight = container.offsetHeight;
-  container.style.transition = "max-height 0.25s ease, opacity 0.2s ease";
-  container.style.overflow = "hidden";
-  container.style.maxHeight = originalHeight + "px";
-  container.style.opacity = "1";
+  // 펼쳐진 상태 기본 높이 = 화면 높이 - 여백 (흰 박스가 꽉 차도록)
+  const fullHeight = window.innerHeight - 32;   // 필요 시 여백 숫자 조절
+  container.style.height = fullHeight + "px";
+
+  // 스크롤 영역 애니메이션 설정
+  scrollArea.style.transition = "max-height 0.25s ease, opacity 0.2s ease";
+  scrollArea.style.maxHeight = scrollArea.scrollHeight + "px";
+  scrollArea.style.opacity = "1";
 
   bar.style.cursor = "pointer";
 
@@ -235,13 +239,20 @@ document.addEventListener("DOMContentLoaded", () => {
     collapsed = !collapsed;
 
     if (collapsed) {
-      container.style.maxHeight = "60px";
-      container.style.opacity = "0.95";
-      bar.classList.add("collapsed");      // ★ 여기에 붙이기
+      // 내용 접기 + 컨테이너 높이를 D-Day 바 정도만 남기기
+      scrollArea.style.maxHeight = "0";
+      scrollArea.style.opacity = "0";
+      container.style.height = bar.offsetHeight + 24 + "px";  // 위아래 여백 조금
+
+      bar.classList.add("collapsed");
     } else {
-      container.style.maxHeight = originalHeight + "px";
-      container.style.opacity = "1";
-      bar.classList.remove("collapsed");   // ★ 여기서 빼기
+      // 내용 펼치기 + 컨테이너를 다시 화면 높이만큼
+      scrollArea.style.maxHeight = scrollArea.scrollHeight + "px";
+      scrollArea.style.opacity = "1";
+      container.style.height = fullHeight + "px";
+
+      bar.classList.remove("collapsed");
     }
   });
 });
+
