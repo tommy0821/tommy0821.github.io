@@ -367,3 +367,37 @@ button:active {
     height: 38px;
   }
 }
+
+.dday-bar {
+  position: relative;
+}
+
+/* 오른쪽 접기/펼치기 화살표 */
+.dday-bar::after {
+  content: "▼";
+  font-size: 18px;              /* 크게 */
+  color: #333;                  /* 진하게 */
+  margin-left: 6px;
+}
+
+.dday-bar.collapsed::after {
+  content: "▶";
+}
+
+.review-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.review-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* review-row 안 input은 남은 너비 채우기 */
+.review-row input {
+  flex: 1;
+  margin-bottom: 0;  /* 위에서 줄 단위로 margin 조절 */
+}

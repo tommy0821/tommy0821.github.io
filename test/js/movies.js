@@ -46,14 +46,22 @@ document.getElementById('add-movie')?.addEventListener("click", async () => {
   const date = document.getElementById('movie-date').value;
   const locationName = document.getElementById('movie-location').value;
   const rating = document.getElementById('movie-rating').value;
-  const review = document.getElementById('movie-review').value;
+  // const review = document.getElementById('movie-review').value;
+  const reviewMale = document.getElementById('movie-review-male').value;
+  const reviewFemale = document.getElementById('movie-review-female').value;
+
   const posterUrl = document.getElementById('movie-poster-url').value;
 
   if (!title || !rating || !date) { alert("영화 선택, 본 날짜, 별점은 필수입니다!"); return; }
 
   const movieData = {
-    title, date, location: locationName, 
-    rating: Number(rating), review, posterUrl,
+    title,
+    date,
+    location: locationName,
+    rating: Number(rating),
+    reviewMale,
+    reviewFemale,
+    posterUrl,
     userId: auth.currentUser.uid,
     updatedAt: new Date()
   };
@@ -104,7 +112,12 @@ async function loadMovies(userId) {
         <div class="info-row">🗓️ 본 날짜: ${data.date}</div>
         <div class="info-row">📍 장소: ${data.location || '미기입'}</div>
         <div class="info-row">⭐ ${data.rating} / 5</div>
-        <p style="margin-top:10px; font-style: italic; color:#444;">"${data.review}"</p>
+        <p style="margin-top:10px; font-style: italic; color:#444;">
+          👨 ${data.reviewMale || ""}
+        </p>
+        <p style="margin-top:2px; font-style: italic; color:#444;">
+          👩 ${data.reviewFemale || ""}
+        </p>
       </div>
     `;
     list.appendChild(card);
@@ -120,7 +133,8 @@ window.editMovie = (id, dataJson) => {
   document.getElementById('movie-date').value = data.date;
   document.getElementById('movie-location').value = data.location || '';
   document.getElementById('movie-rating').value = data.rating;
-  document.getElementById('movie-review').value = data.review || '';
+  document.getElementById('movie-review-male').value = data.reviewMale || "";
+  document.getElementById('movie-review-female').value = data.reviewFemale || "";
   document.getElementById('movie-poster-url').value = data.posterUrl || '';
   document.getElementById('poster-preview').innerHTML = `<img src="${data.posterUrl}" style="width:120px; border-radius:8px;">`;
 
@@ -199,4 +213,35 @@ document.addEventListener("DOMContentLoaded", () => {
   if (ratingInput && !ratingInput.value) {
     ratingInput.value = 5; // 기본 별점
   }
+});
+
+// D-Day 아래 컨텐츠 접기/펼치기
+document.addEventListener("DOMContentLoaded", () => {
+  const bar = document.getElementById("dday-bar");
+  const container = document.querySelector(".container");
+  if (!bar || !container) return;
+
+  let collapsed = false;
+
+  const originalHeight = container.offsetHeight;
+  container.style.transition = "max-height 0.25s ease, opacity 0.2s ease";
+  container.style.overflow = "hidden";
+  container.style.maxHeight = originalHeight + "px";
+  container.style.opacity = "1";
+
+  bar.style.cursor = "pointer";
+
+  bar.addEventListener("click", () => {
+    collapsed = !collapsed;
+
+    if (collapsed) {
+      container.style.maxHeight = "60px";
+      container.style.opacity = "0.95";
+      bar.classList.add("collapsed");      // ★ 여기에 붙이기
+    } else {
+      container.style.maxHeight = originalHeight + "px";
+      container.style.opacity = "1";
+      bar.classList.remove("collapsed");   // ★ 여기서 빼기
+    }
+  });
 });
