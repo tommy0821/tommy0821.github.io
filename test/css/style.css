@@ -391,6 +391,11 @@ button:active {
   content: "▶";
 }
 
+/* 메인(로그인) 화면에서는 화살표 숨김 */
+.dday-static::after {
+  content: "";
+}
+
 .review-row {
   display: flex;
   align-items: center;
@@ -434,4 +439,19 @@ button:active {
   color: #fff;
   border-radius: 10px;
   border: none;
+}
+
+
+/* 로그인 화면 전용 컨테이너 (예전 스타일 유지) */
+.login-container-box {
+  width: 90%;
+  max-width: 450px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 25px 20px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
 }
